@@ -1,7 +1,7 @@
 import React from 'react';
 
 export interface LogoProps extends React.ImgHTMLAttributes<HTMLImageElement> {
-  
+
 }
 
 const Logo: React.FC<LogoProps> = function(props) {

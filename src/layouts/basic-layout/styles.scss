@@ -1,0 +1,10 @@
+
+.basic-layout {
+  min-height: 100vh;
+
+  &-header {
+    @apply bg-white;
+    @apply flex;
+    @apply items-center;
+  }
+}

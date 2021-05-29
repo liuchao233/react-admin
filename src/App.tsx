@@ -5,7 +5,7 @@ import {
   Route,
 } from "react-router-dom";
 import UserLayout from '@/layouts/user-layout';
-import HomeLayout from '@/layouts/home-layout';
+import HomeLayout from '@/layouts/basic-layout';
 import Login from '@/pages/user/login';
 import Home from '@/pages/home'; 
 import './App.less';
