@@ -1,6 +1,10 @@
 import React from 'react';
-import { makeAutoObservable } from 'mobx';
+import { makeAutoObservable, configure } from 'mobx';
 import { Provider as MobxProvider } from 'mobx-react';
+
+configure({
+  enforceActions: 'always',
+})
 
 class Global {  
   siderCollapsed = false;
