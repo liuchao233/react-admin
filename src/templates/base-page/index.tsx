@@ -1,10 +1,15 @@
 import React from 'react';
 
-export interface BasicPageProps extends React.HTMLAttributes<HTMLDivElement> {
+export interface BasePageProps extends React.HTMLAttributes<HTMLDivElement> {
   
 }
 
-class BasicPage<P extends BasicPageProps = BasicPageProps> extends React.PureComponent<P> {
+export interface BasePageStates {
+  
+}
+
+class BasicPage<P extends BasePageProps = BasePageProps, S extends BasePageStates = BasePageStates> extends React.PureComponent<P, S> {
+
   renderContent(): React.ReactNode {
     return this.props.children;
   }

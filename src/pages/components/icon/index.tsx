@@ -1,5 +1,5 @@
 import React from 'react';
-import BasicPage from '@/templates/basic-page';
+import BasicPage from '@/templates/base-page';
 
 const IconsPage: React.FC = function() {
   return (
