@@ -44,8 +44,8 @@ const UserDetail: React.FC = function(props) {
 
 const Header: React.FC = function() {
   return (
-    <Layout.Header className="basic-layout-header py-4 px-8 justify-between">
-      <ObserverTrigger className="cursor-pointer text-2xl" />
+    <Layout.Header className="basic-layout-header py-4 px-8 justify-between leading-8">
+      <ObserverTrigger className="cursor-pointer text-2xl leading-8" />
       <UserDetail />
     </Layout.Header>
   )

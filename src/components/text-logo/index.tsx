@@ -8,7 +8,7 @@ const TextLogo: React.FC<TextLogoProps> = function(props) {
   const { siderCollapsed: collapsed } = useContext(SiderContext)
 
   return (
-    <div className="font-sans text-xl leading-none text-white text-center h-16 py-5">
+    <div className="font-sans text-2xl leading-8 text-white text-center h-16 py-4">
       {
         collapsed ? (
           <span><b>R</b>A</span>
