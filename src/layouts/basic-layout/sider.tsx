@@ -23,7 +23,7 @@ const Sider: React.FC<SiderProps> = function(props) {
         mode="inline"
       >
         <Menu.SubMenu
-          key="1"
+          key="submenu-1"
           icon={<Icon name="home" />}
           title="首页"
         >
@@ -31,11 +31,11 @@ const Sider: React.FC<SiderProps> = function(props) {
           <Menu.Item key="1-2">工作台</Menu.Item>
         </Menu.SubMenu>
         <Menu.SubMenu
-          key="2"
+          key="submenu-2"
           icon={<Icon name="code" />}
           title="组件"
         >
-          <Menu.ItemGroup title="图标">
+          <Menu.ItemGroup key="group-2" title="图标">
             <Menu.Item key="2-1">小清新图标</Menu.Item>
             <Menu.Item key="2-2">图标选择器</Menu.Item>
           </Menu.ItemGroup>
