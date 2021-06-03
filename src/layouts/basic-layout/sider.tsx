@@ -1,9 +1,11 @@
 import React from 'react';
 import { Layout, Menu } from 'antd';
 import { observer, inject } from 'mobx-react';
+import { useHistory } from 'react-router';
 import { IStores } from '@/store';
 import TextLogo from '@/components/text-logo';
 import Icon from '@/components/icon';
+import { SelectInfo } from 'rc-menu/lib/interface'
 
 export interface SiderProps {
   collapsed?: boolean;
@@ -11,6 +13,13 @@ export interface SiderProps {
 
 const Sider: React.FC<SiderProps> = function(props) {
   const { collapsed } = props;
+  const history = useHistory();
+
+  function onSelect(info: SelectInfo) {
+    const path = info.key;
+    history.push(path);
+  }
+
   return (
     <Layout.Sider 
       width="240" 
@@ -21,23 +30,24 @@ const Sider: React.FC<SiderProps> = function(props) {
       <Menu
         theme="dark"
         mode="inline"
+        onSelect={onSelect}
       >
         <Menu.SubMenu
-          key="submenu-1"
+          key="sub-/"
           icon={<Icon name="home" />}
           title="首页"
         >
-          <Menu.Item key="1-1">首页</Menu.Item>
-          <Menu.Item key="1-2">工作台</Menu.Item>
+          <Menu.Item key="/">首页</Menu.Item>
+          <Menu.Item key="/workbench">工作台</Menu.Item>
         </Menu.SubMenu>
         <Menu.SubMenu
-          key="submenu-2"
+          key="sub-/component"
           icon={<Icon name="code" />}
           title="组件"
         >
-          <Menu.ItemGroup key="group-2" title="图标">
-            <Menu.Item key="2-1">小清新图标</Menu.Item>
-            <Menu.Item key="2-2">图标选择器</Menu.Item>
+          <Menu.ItemGroup key="group-/components/icon" title="图标">
+            <Menu.Item key="/components/icons">小清新图标</Menu.Item>
+            <Menu.Item key="/components/icon-selector">图标选择器</Menu.Item>
           </Menu.ItemGroup>
         </Menu.SubMenu>
       </Menu>

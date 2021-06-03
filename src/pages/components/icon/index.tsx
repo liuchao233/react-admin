@@ -1,10 +1,11 @@
 import React from 'react';
+import BasicPage from '@/templates/basic-page';
 
 const IconsPage: React.FC = function() {
   return (
-    <div>
+    <BasicPage>
       icon
-    </div>
+    </BasicPage>
   )
 }
 

@@ -12,7 +12,7 @@ const BasicLayout: React.FC = function(props) {
       <Layout>
         <Header />
         <Layout className="p-6">
-          <Layout.Content className="basic-layout-content bg-white p-4">
+          <Layout.Content className="basic-layout-content">
             {children}
           </Layout.Content>
         </Layout>

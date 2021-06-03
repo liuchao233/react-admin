@@ -4,22 +4,24 @@ import {
   Route,
   RouteComponentProps,
 } from "react-router-dom";
+import BlankLayout from '@/layouts/blank-layout';
 import UserLayout from '@/layouts/user-layout';
 import Login from '@/pages/user/login';
-import HomeLayout from '@/layouts/basic-layout';
-import Home from '@/pages/home'; 
+import BasicLayout from '@/layouts/basic-layout';
+import Home from '@/pages/home';
+import Icons from '@/pages/components/icon';
 
 export interface IRouter {
   title?: string;
   path?: string;
   exact?: boolean;
-  component: React.ComponentType<RouteComponentProps<any>> | React.ComponentType<any>
+  component?: React.ComponentType<RouteComponentProps<any>> | React.ComponentType<any>
   routes?: IRoutes,
 }
 
 export type IRoutes = IRouter[]
 
-const routes: IRoutes = [
+export const routes: IRoutes = [
   {
     path: '/user',
     component: UserLayout,
@@ -32,13 +34,22 @@ const routes: IRoutes = [
   },
   {
     path: '/',
-    component: HomeLayout,
+    component: BasicLayout,
     routes: [
       {
         path: '/',
         exact: true,
         component: Home,
       },
+      {
+        path: '/components',
+        routes: [
+          {
+            path: '/components/icons',
+            component: Icons,
+          }
+        ]
+      }
     ] 
   },
 ]
@@ -52,18 +63,20 @@ function renderRoutes(routes: IRoutes = []) {
             key={r.path}
             exact={r.exact} 
             path={r.path}
-            render={routerProps => (
-              <r.component {...routerProps}>
-                {renderRoutes(r.routes)}
-              </r.component>
-            )} 
+            render={routerProps => {
+              let Component = r.component || BlankLayout
+              return (
+                <Component {...routerProps}>
+                  {renderRoutes(r.routes)}
+                </Component>
+              )
+            }} 
           />
         ))
       }
     </Switch>
   )
 }
-
 
 const Router: React.FC = function() {
   return (
