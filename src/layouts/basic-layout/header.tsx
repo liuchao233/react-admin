@@ -1,18 +1,26 @@
 import React from 'react';
+import { observer, inject } from 'mobx-react';
 import { Layout, Menu, Dropdown, Avatar } from 'antd';
+import { IStores } from '@/store';
 import Icon from '@/components/icon';
 
 interface TriggerProps extends React.HTMLAttributes<HTMLSpanElement> {
   collapsed?: boolean;
+  toggleCollapsed?: () => void;
 }
 
 const Trigger: React.FC<TriggerProps> = function(props) {
-  const { collapsed, ...restProps } = props;
+  const { collapsed, toggleCollapsed, ...restProps } = props;
   const name = collapsed ? 'menu-fold' : 'menu-unfold';
   return (
-    <Icon name={name} {...restProps} />
+    <Icon name={name} {...restProps} onClick={() => toggleCollapsed?.()} />
   )
 }
+
+const ObserverTrigger = inject((stores: IStores) => ({ 
+  collapsed: stores.global.siderCollapsed,
+  toggleCollapsed: stores.global.toggleSiderCollapse,
+}))(observer(Trigger))
 
 const menu = (
   <Menu>
@@ -37,7 +45,7 @@ const UserDetail: React.FC = function(props) {
 const Header: React.FC = function() {
   return (
     <Layout.Header className="basic-layout-header py-4 px-8 justify-between">
-      <Trigger className="cursor-pointer text-2xl" />
+      <ObserverTrigger className="cursor-pointer text-2xl" />
       <UserDetail />
     </Layout.Header>
   )
