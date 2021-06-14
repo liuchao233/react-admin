@@ -1,15 +1,21 @@
 import {
-  BrowserRouter,
+  Router,
   Switch,
   Route,
   RouteComponentProps,
 } from "react-router-dom";
+import { createBrowserHistory } from 'history';
 import BlankLayout from '@/layouts/blank-layout';
 import UserLayout from '@/layouts/user-layout';
 import Login from '@/pages/user/login';
 import BasicLayout from '@/layouts/basic-layout';
 import Home from '@/pages/home';
-import Icons from '@/pages/components/icon';
+import Icon from '@/pages/components/icon';
+import Table from '@/pages/components/table';
+
+const history = createBrowserHistory({
+  basename: '/',
+});
 
 export interface IRouter {
   title?: string;
@@ -45,8 +51,12 @@ export const routes: IRoutes = [
         path: '/components',
         routes: [
           {
-            path: '/components/icons',
-            component: Icons,
+            path: '/components/icon',
+            component: Icon,
+          },
+          {
+            path: '/components/table',
+            component: Table,
           }
         ]
       }
@@ -78,12 +88,14 @@ function renderRoutes(routes: IRoutes = []) {
   )
 }
 
-const Router: React.FC = function() {
+const BaseRouter: React.FC = function() {
   return (
-    <BrowserRouter>
+    <Router history={history}>
       {renderRoutes(routes)}
-    </BrowserRouter>
+    </Router>
   )
 }
 
-export default Router
+export default BaseRouter;
+
+export { history };

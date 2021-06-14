@@ -17,9 +17,14 @@ module.exports = {
     },
   },
   devServer: {
+    before(app) {
+      if (process.env.MOCK) {
+
+      }
+    },
     proxy: {
       '/api': {
-        target: 'http://localhost',
+        target: 'http://localhost:8080',
         changeOrigin: true,
         pathRewrite: { '^/api': '' },
       }

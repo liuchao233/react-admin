@@ -2,8 +2,10 @@ import React from 'react';
 import BasePage, { BasePageProps, BasePageStates } from '@/templates/base-page';
 import { Table, Modal, Space, Button, Form, Row, Col, message } from 'antd';
 import { FormInstance } from 'antd/lib/form';
-import { ColumnsType, TablePaginationConfig, TableRowSelection } from 'antd/lib/table/interface';
+import { ColumnsType, TablePaginationConfig } from 'antd/lib/table/interface';
 import { PaginationProps } from 'antd/lib/pagination';
+import { AlignType } from 'rc-table/lib/interface';
+import Icon from '@/components/icon';
 import request from '@/utils/request';
 
 export interface BaseListPageProps extends BasePageProps {
@@ -20,6 +22,7 @@ class BaseListPage extends BasePage<BaseListPageProps, BaseListPageStates> {
   rowKey = 'id';
   bordered = true;
   columns: ColumnsType<any>= []
+  defaultColumnsAlign: AlignType = 'center';
   showPagination = true;
 
   pagination: PaginationProps = {
@@ -45,6 +48,13 @@ class BaseListPage extends BasePage<BaseListPageProps, BaseListPageStates> {
   constructor(props: BaseListPageProps) {
     super(props);
 
+    this.columns.forEach(c => {
+      if (!c.align) {
+        c.align = this.defaultColumnsAlign;
+      }
+    })
+
+    this.getColumns = this.getColumns.bind(this);
     this.getSearchParams = this.getSearchParams.bind(this);
     this.loadData = this.loadData.bind(this);
     this.reloadData = this.reloadData.bind(this);
@@ -61,7 +71,8 @@ class BaseListPage extends BasePage<BaseListPageProps, BaseListPageStates> {
     this.renderSearchForm = this.renderSearchForm.bind(this);
     this.renderActionItems = this.renderActionItems.bind(this);
     this.renderActions = this.renderActions.bind(this);
-    this.renderOperation = this.renderOperation.bind(this);
+    this.renderRowOperation = this.renderRowOperation.bind(this);
+    this.renderRowOrder = this.renderRowOrder.bind(this);
     this.renderFormModal = this.renderFormModal.bind(this);
     this.renderTable = this.renderTable.bind(this);
   }
@@ -69,6 +80,15 @@ class BaseListPage extends BasePage<BaseListPageProps, BaseListPageStates> {
   componentDidMount() {
     this.getSearchParams = this.getSearchParams.bind(this);
     this.loadData = this.loadData.bind(this);
+  }
+
+  getColumns(): ColumnsType<any> {
+    return this.columns.map(c => {
+      if (!c.align) {
+        c.align = this.defaultColumnsAlign;
+      }
+      return c;
+    })
   }
 
   getSearchParams(): any {
@@ -232,17 +252,19 @@ class BaseListPage extends BasePage<BaseListPageProps, BaseListPageStates> {
 
   renderActionItems(): React.ReactNode  {
     const { selectedRowKeys } = this.state;
-    const disabled = selectedRowKeys.length == 0;
+    const disabled = selectedRowKeys.length === 0;
     return (
       <Space>
         <Button 
           type="primary"
+          icon={<Icon name="plus" />}
           onClick={this.onAdd}
         >
           新增
         </Button>
         <Button 
           type="primary" 
+          icon={<Icon name="delete" />}
           danger 
           disabled={disabled}
           onClick={() => this.onRemove(selectedRowKeys)}
@@ -261,13 +283,22 @@ class BaseListPage extends BasePage<BaseListPageProps, BaseListPageStates> {
     )
   }
 
-  renderOperation(text: string, record: any): React.ReactNode  {
+  renderRowOperation(text: string, record: any): React.ReactNode  {
     return (
       <Space>
         <a  onClick={() => this.onEdit(record)}>修改</a>
         <a onClick={() => this.onRemove([record.id])}>删除</a>
       </Space>
     )
+  }
+
+  renderRowOrder(_: any, __: any, index: number) {
+    return (
+      index +
+      1 +
+      (this.pagination.current! - 1) *
+        this.pagination.pageSize!
+    );
   }
 
   renderFormModal() {
@@ -279,7 +310,7 @@ class BaseListPage extends BasePage<BaseListPageProps, BaseListPageStates> {
       <Table 
         rowKey={this.rowKey}
         bordered={this.bordered}
-        columns={this.columns}
+        columns={this.getColumns()}
         onChange={this.onTableChange}
       />        
     )
