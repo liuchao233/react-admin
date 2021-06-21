@@ -45,10 +45,11 @@ const Sider: React.FC<SiderProps> = function(props) {
           icon={<Icon name="code" />}
           title="组件"
         >
-          <Menu.ItemGroup key="group-/components/icon" title="图标">
+          <Menu.Item key="/components/table">表格demo</Menu.Item>
+          {/* <Menu.ItemGroup key="group-/components/icon" title="图标">
             <Menu.Item key="/components/icons">小清新图标</Menu.Item>
             <Menu.Item key="/components/icon-selector">图标选择器</Menu.Item>
-          </Menu.ItemGroup>
+          </Menu.ItemGroup> */}
         </Menu.SubMenu>
       </Menu>
     </Layout.Sider>
