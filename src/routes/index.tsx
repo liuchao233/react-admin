@@ -12,6 +12,7 @@ import BasicLayout from '@/layouts/basic-layout';
 import Home from '@/pages/home';
 import Icon from '@/pages/components/icon';
 import Table from '@/pages/components/table';
+import Exception404 from "@/pages/exception/404";
 
 const history = createBrowserHistory({
   basename: '/',
@@ -57,8 +58,16 @@ export const routes: IRoutes = [
           {
             path: '/components/table',
             component: Table,
+          },
+          {
+            path: '*',
+            component: Exception404,
           }
         ]
+      },
+      {
+        path: '*',
+        component: Exception404,
       }
     ] 
   },

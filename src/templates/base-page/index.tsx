@@ -1,4 +1,5 @@
 import React from 'react';
+import './styles.scss'
 
 export interface BasePageProps extends React.HTMLAttributes<HTMLDivElement> {
   
@@ -16,7 +17,7 @@ class BasicPage<P extends BasePageProps = BasePageProps, S extends BasePageState
 
   render() {
     return (
-      <section className="bg-white p-4 min-h-full">
+      <section className="bg-white p-4 min-h-full fade-in">
         {this.renderContent()}
       </section>
     )
