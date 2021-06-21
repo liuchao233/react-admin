@@ -4,7 +4,7 @@ import path from 'path';
 
 const app = express();
 
-apiMocker(app, path.resolve('./index.js'));
+apiMocker(app, path.resolve('./index.ts'));
 app.listen(8080);
 
 console.log('=> http://localhost:8080')

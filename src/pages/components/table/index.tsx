@@ -1,5 +1,5 @@
-import React from 'react';
-import BaseListPage, { BaseListPageProps } from '@/templates/base-list-page';
+import { Tag, Switch, Col, Form, Input, Alert } from 'antd';
+import BaseListPage from '@/templates/base-list-page';
 import { ColumnsType } from 'antd/lib/table';
 import { AlignType } from 'rc-table/lib/interface';
 
@@ -24,20 +24,18 @@ class TablePage extends BaseListPage {
       dataIndex: 'rate',
     },
     {
-      title: '头像',
-      dataIndex: 'avatar',
-    },
-    {
       title: '点击量',
       dataIndex: 'clickCount',
     },
     {
       title: '开关',
       dataIndex: 'switch',
+      render: text => <Switch checked={text} />
     },
     {
       title: '状态',
       dataIndex: 'status',
+      render: text => <Tag color={text === 'published' ? 'green' : 'blue'}>{text}</Tag>
     },
     {
       title: '时间',
@@ -48,6 +46,28 @@ class TablePage extends BaseListPage {
       render: this.renderRowOperation,
     }
   ]
+
+  urls = {
+    list: '/components/table/list',
+  }
+
+  renderAlert() {
+    return (
+      <Alert message="简单表格示例" type="success" showIcon className="mb-6" />
+    )
+  }
+
+  renderSearchFormItems() {
+    return (
+      <>
+        <Col md={6}>
+          <Form.Item label="标题" name="title">
+            <Input placeholder="请输入" />
+          </Form.Item>
+        </Col>
+      </>
+    )
+  }
 }
 
 export default TablePage;
