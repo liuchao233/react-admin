@@ -33,6 +33,7 @@ console.log('list', list)
 const proxy = {
   // 'GET /user': require('./db/user').default,
   'GET /components/table/list': list,
+  'GET /dict/user': require('./dict/user').list,
 }
 
 export default noProxy ? {} : delay(proxy, 1000)

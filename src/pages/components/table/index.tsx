@@ -1,5 +1,5 @@
 import React from 'react';
-import { Tag, Switch, Col, Form, Input, Alert } from 'antd';
+import { Tag, Switch, Col, Form, Input, Alert, Rate } from 'antd';
 import BaseListPage from '@/templates/base-list-page';
 import { ColumnsType } from 'antd/lib/table';
 import { AlignType } from 'rc-table/lib/interface';
@@ -25,6 +25,7 @@ class TablePage extends BaseListPage {
     {
       title: '评级',
       dataIndex: 'rate',
+      render: text => <Rate value={text} disabled />
     },
     {
       title: '点击量',
@@ -59,7 +60,7 @@ class TablePage extends BaseListPage {
 
   renderAlert() {
     return (
-      <Alert message="简单表格示例" type="success" showIcon className="mb-6" />
+      <Alert message="简单列表示例" type="success" showIcon className="mb-6" />
     )
   }
 
@@ -73,7 +74,7 @@ class TablePage extends BaseListPage {
         </Col>
         <Col md={6}>
           <Form.Item label="作者" name="author">
-            <ActionSelect />
+            <ActionSelect action="/dict/user" />
           </Form.Item>
         </Col>
       </>
