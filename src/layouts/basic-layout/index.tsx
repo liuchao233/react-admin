@@ -11,7 +11,7 @@ const BasicLayout: React.FC = function(props) {
       <Sider />
       <Layout>
         <Header />
-        <Layout className="p-6">
+        <Layout className="p-6 overflow-auto">
           <Layout.Content className="basic-layout-content">
             {children}
           </Layout.Content>

@@ -16,7 +16,7 @@ class BasicPage<P extends BasePageProps = BasePageProps, S extends BasePageState
 
   render() {
     return (
-      <section className="bg-white p-4 h-full">
+      <section className="bg-white p-4 min-h-full">
         {this.renderContent()}
       </section>
     )
