@@ -1,7 +1,9 @@
+import React from 'react';
 import { Tag, Switch, Col, Form, Input, Alert } from 'antd';
 import BaseListPage from '@/templates/base-list-page';
 import { ColumnsType } from 'antd/lib/table';
 import { AlignType } from 'rc-table/lib/interface';
+import FormModal from './form-modal';
 
 class TablePage extends BaseListPage {
   defaultColumnsAlign: AlignType = 'center';
@@ -47,9 +49,12 @@ class TablePage extends BaseListPage {
     }
   ]
 
-  urls = {
+  urls: ListUrls = {
     list: '/components/table/list',
+    remove: '/component/table/remove',
   }
+
+  formModalRef = React.createRef<FormModal>();
 
   renderAlert() {
     return (
@@ -65,6 +70,14 @@ class TablePage extends BaseListPage {
             <Input placeholder="请输入" />
           </Form.Item>
         </Col>
+      </>
+    )
+  }
+
+  renderFormModal() {
+    return (
+      <>
+        <FormModal ref={this.formModalRef} reloadData={this.reloadData} />
       </>
     )
   }

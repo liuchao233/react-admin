@@ -1,8 +1,7 @@
 import { Modal } from 'antd';
-import BaseInteractiveCls, { BaseInteractiveClsProps, BaseInteractiveClsStates } from '@/templates/base-interactive-cls';
+import BaseFormInteractiveCls from '../base-form-interactive-cls';
 
-class BaseModal extends BaseInteractiveCls {
-  
+class BaseFormModal extends BaseFormInteractiveCls {
   render() {
     const { visible, loading } = this.state;
     return (
@@ -12,7 +11,7 @@ class BaseModal extends BaseInteractiveCls {
         width={this.width}
         visible={visible}
         title={this.getTitle()}
-        onOk={this.onOk}
+        onOk={this.onSubmit}
         onCancel={this.onCancel}
         confirmLoading={loading}
         maskClosable={this.maskClosable}
@@ -22,6 +21,6 @@ class BaseModal extends BaseInteractiveCls {
       </Modal>
     )
   }
-}
+} 
 
-export default BaseModal
+export default BaseFormModal;

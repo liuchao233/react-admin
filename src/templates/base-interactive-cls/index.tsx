@@ -1,7 +1,7 @@
 import React from 'react';
 
 export interface BaseInteractiveClsProps {
-  
+  reloadData?: (...args: any) => any;
 }
 
 export interface BaseInteractiveClsStates extends Record<string, any> {
@@ -12,7 +12,6 @@ export interface BaseInteractiveClsStates extends Record<string, any> {
 }
 
 class BaseInteractiveCls<P extends BaseInteractiveClsProps = BaseInteractiveClsProps, S extends BaseInteractiveClsStates = BaseInteractiveClsStates> extends React.PureComponent<P, S | BaseInteractiveClsStates> {
-  pk = 'id';
   title = '';
   width: string | number = 500;
   okText = '确认';
@@ -22,7 +21,6 @@ class BaseInteractiveCls<P extends BaseInteractiveClsProps = BaseInteractiveClsP
   destroyOnClose = false
 
   state: BaseInteractiveClsStates = {
-    id: '',
     visible: false,
     loading: false,
   }

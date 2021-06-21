@@ -14,4 +14,5 @@ declare namespace http {
   
   type ListResponse<T = any> = PaginatedResponse<T> | T[];
   
+  type DetailResponse<T = Record<string, any>> = T; 
 }

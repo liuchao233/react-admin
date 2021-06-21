@@ -2,11 +2,12 @@ import React from 'react';
 import BasePage, { BasePageProps, BasePageStates } from '@/templates/base-page';
 import { Spin, Table, Modal, Space, Button, Form, Row, Col, message, Typography } from 'antd';
 import { FormInstance } from 'antd/lib/form';
-import { ColumnsType, TablePaginationConfig } from 'antd/lib/table/interface';
+import { ColumnsType, TablePaginationConfig, TableRowSelection } from 'antd/lib/table/interface';
 import { PaginationProps } from 'antd/lib/pagination';
 import { AlignType } from 'rc-table/lib/interface';
 import Icon from '@/components/icon';
 import request from '@/utils/request';
+import BaseFormInteractiveCls from '@/templates/base-form-interactive-cls';
 
 export interface BaseListPageProps extends BasePageProps {
   
@@ -24,14 +25,18 @@ class BaseListPage extends BasePage<BaseListPageProps, BaseListPageStates> {
   columns: ColumnsType<any>= []
   defaultColumnsAlign: AlignType = 'center';
   showPagination = true;
-
+  rowSelection: TableRowSelection<any> | undefined = {
+    type: 'checkbox',
+    onChange: this.onRowSelectionChange.bind(this),
+  }
   pagination: PaginationProps = {
     current: 1,
     pageSize: 20,
     total: 0,
   }
 
-  urls: Urls = {}
+  formModalRef = React.createRef<BaseFormInteractiveCls>();
+  urls: ListUrls = {}
 
   searchFormRef = React.createRef<FormInstance>();
   searchFormInitialValues = {};
@@ -152,11 +157,11 @@ class BaseListPage extends BasePage<BaseListPageProps, BaseListPageStates> {
   }
 
   onAdd() {
-    // this.formModalRef.current?.add();
+    this.formModalRef.current?.add();
   }
 
   onEdit(record: any) {
-    // this.formModalRef.current?.edit(data);
+    this.formModalRef.current?.edit(record);
   }
 
   onView() {
@@ -306,13 +311,19 @@ class BaseListPage extends BasePage<BaseListPageProps, BaseListPageStates> {
   }
 
   renderTable(): React.ReactNode {
+    const { list } = this.state;
+    const rowSelection = this.rowSelection && {
+      ...this.rowSelection!,
+      selectedRowKeys: this.state.selectedRowKeys,
+    };
     return (
       <Table
         rowKey={this.rowKey}
+        rowSelection={rowSelection}
         bordered={this.bordered}
         columns={this.getColumns()}
         onChange={this.onTableChange}
-        dataSource={this.state.list}
+        dataSource={list}
       />        
     )
   }
