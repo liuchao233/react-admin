@@ -3,6 +3,7 @@ import { Tag, Switch, Col, Form, Input, Alert } from 'antd';
 import BaseListPage from '@/templates/base-list-page';
 import { ColumnsType } from 'antd/lib/table';
 import { AlignType } from 'rc-table/lib/interface';
+import ActionSelect from '@/components/action-select';
 import FormModal from './form-modal';
 
 class TablePage extends BaseListPage {
@@ -68,6 +69,11 @@ class TablePage extends BaseListPage {
         <Col md={6}>
           <Form.Item label="标题" name="title">
             <Input placeholder="请输入" />
+          </Form.Item>
+        </Col>
+        <Col md={6}>
+          <Form.Item label="作者" name="author">
+            <ActionSelect />
           </Form.Item>
         </Col>
       </>
